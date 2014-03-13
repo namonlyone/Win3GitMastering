@@ -1,6 +1,7 @@
 package com.aavn.demo.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -29,6 +30,7 @@ public class ElasticSearchController extends AbstractController{
 
 	private static final String INDEX_NAME = "neo4jdb";
 	private static final String TYPE = "film";
+	private static final String PERSON = "Person";
 	
 	@Override
 	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -50,22 +52,27 @@ public class ElasticSearchController extends AbstractController{
 			ClientProvider clientProvider = ClientProvider.instance();
 			clientProvider.prepareClient();
 			
-			QueryBuilder queryBuilder = QueryBuilders.fuzzyLikeThisQuery("name").likeText(name);
+			QueryBuilder queryBuilder = QueryBuilders.fuzzyLikeThisQuery("name", "title").likeText(name);
             
             SearchRequestBuilder searchRequestBuilder = clientProvider.getClient().prepareSearch(INDEX_NAME);
             searchRequestBuilder.setTypes(TYPE);
             searchRequestBuilder.setSearchType(SearchType.DEFAULT);
             searchRequestBuilder.setQuery(queryBuilder);
             searchRequestBuilder.setFrom(0).setSize(60).setExplain(true);
-
+            
             SearchResponse response = searchRequestBuilder.execute().actionGet();
 
             if (response != null) {
-
                 for (SearchHit hit : response.getHits()) {
-                	if (hit.getSource().get("name") != null && hit.getSource().get("born") != null) {
-                		result = new Result(hit.getSource().get("name").toString(), hit.getSource().get("born").toString());
-                        resultLst.add(result);
+                	String type = ((ArrayList)hit.getSource().get("labels")).get(0).toString();
+                	if (PERSON.equals(type)) {
+                		// Add Person
+                		result = new Result(type, hit.getSource().get("name").toString(), hit.getSource().get("born").toString());
+                        resultLst.add(result);;
+					} else {
+						// Add Movie
+                		result = new Result(type, hit.getSource().get("title").toString(), hit.getSource().get("tagline").toString(), hit.getSource().get("released").toString());
+                        resultLst.add(result);;
 					}
                 }
             }
