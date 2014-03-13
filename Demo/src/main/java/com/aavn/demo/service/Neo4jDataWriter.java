@@ -49,7 +49,7 @@ public class Neo4jDataWriter implements ItemWriter<Movie> {
 			Map<String, Object> e = (Map<String, Object>) resultSet.getObject("n");
 			System.out.println(e.get("tagline"));
 		}
-		
+
 		System.out.println("//-------------------------------------");
 	}
 }
