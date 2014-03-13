@@ -27,8 +27,8 @@ import com.aavn.demo.service.ClientProvider;
 @RequestMapping("/search")
 public class ElasticSearchController extends AbstractController{
 
-	private static final String INDEX_NAME = "neo4jdb";
-	private static final String TYPE = "film";
+	private static final String INDEX_NAME = "movies";
+	private static final String TYPE = "movie";
 	
 	@Override
 	@RequestMapping(value = "/", method = RequestMethod.GET)
