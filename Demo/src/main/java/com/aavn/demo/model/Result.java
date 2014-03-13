@@ -8,7 +8,7 @@ package com.aavn.demo.model;
 public class Result {
 
 	String type;
-	// Person Properties
+	// Person Properties	
 	String name;
 	String born;
 	// Movie Properties
@@ -39,6 +39,7 @@ public class Result {
 	public String getBorn() {
 		return born;
 	}
+	
 	public void setBorn(String born) {
 		this.born = born;
 	}
