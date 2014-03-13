@@ -59,7 +59,6 @@ public class ElasticSearchController extends AbstractController{
             searchRequestBuilder.setSearchType(SearchType.DEFAULT);
             searchRequestBuilder.setQuery(queryBuilder);
             searchRequestBuilder.setFrom(0).setSize(60).setExplain(true);
-
             SearchResponse response = searchRequestBuilder.execute().actionGet();
 
             if (response != null) {
