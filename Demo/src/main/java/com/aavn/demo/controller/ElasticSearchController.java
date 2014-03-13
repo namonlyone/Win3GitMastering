@@ -27,6 +27,9 @@ import com.aavn.demo.service.ClientProvider;
 @RequestMapping("/search")
 public class ElasticSearchController extends AbstractController{
 
+	private static final String INDEX_NAME = "neo4jdb";
+	private static final String TYPE = "film";
+	
 	@Override
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView handleRequestInternal(HttpServletRequest request,
@@ -43,9 +46,16 @@ public class ElasticSearchController extends AbstractController{
 		Result result = null;
 		
 		try {
-            QueryBuilder queryBuilder = QueryBuilders.queryString("*" + name +"*");
-            SearchRequestBuilder searchRequestBuilder = ClientProvider.instance().getClient().prepareSearch("neo4jdb");
-            searchRequestBuilder.setTypes("film");
+			
+			ClientProvider clientProvider = ClientProvider.instance();
+			clientProvider.prepareClient();
+			
+			//QueryBuilder queryBuilder = QueryBuilders.matchAllQuery();
+			
+			QueryBuilder queryBuilder = QueryBuilders.fuzzyLikeThisQuery("name").likeText(name);
+            
+            SearchRequestBuilder searchRequestBuilder = clientProvider.getClient().prepareSearch(INDEX_NAME);
+            searchRequestBuilder.setTypes(TYPE);
             searchRequestBuilder.setSearchType(SearchType.DEFAULT);
             searchRequestBuilder.setQuery(queryBuilder);
             searchRequestBuilder.setFrom(0).setSize(60).setExplain(true);
@@ -55,9 +65,14 @@ public class ElasticSearchController extends AbstractController{
             if (response != null) {
 
                 for (SearchHit hit : response.getHits()) {
-                    //TODO : Code Search Here
+                	if (hit.getSource().get("name") != null && hit.getSource().get("born") != null) {
+                		result = new Result(hit.getSource().get("name").toString(), hit.getSource().get("born").toString());
+                        resultLst.add(result);
+					}
                 }
             }
+            
+            clientProvider.getClient().close();
 
         } catch (IndexMissingException ex){
             System.out.println("IndexMissingException: " + ex.toString());
