@@ -44,7 +44,7 @@
 		<input type="button" value="Search" style="width:30%" >
 	</div>
 </div>
-<div class="demo_result_panel">
+<div class="demo_result_panel">ádf
 </div>	
 </body>
 </html>
