@@ -3,6 +3,7 @@ package com.aavn.demo.service;
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
+
 /**
  * 
  * @author lqdung
@@ -26,8 +27,7 @@ public class ClientProvider {
     }
 
     public void prepareClient(){
-        //Settings settings = ImmutableSettings.settingsBuilder().put("cluster.name", "dungle").build();
-    	client = new TransportClient().addTransportAddress(new InetSocketTransportAddress("localhost", 9300));
+        client = new TransportClient().addTransportAddress(new InetSocketTransportAddress("localhost", 9300));
     }
     
     
