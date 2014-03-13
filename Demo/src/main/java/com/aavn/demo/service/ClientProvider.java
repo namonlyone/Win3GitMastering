@@ -5,7 +5,6 @@ import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.ImmutableSettings;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.InetSocketTransportAddress;
-
 /**
  * 
  * @author lqdung
@@ -31,11 +30,10 @@ public class ClientProvider {
     public void prepareClient(){
         Settings settings = ImmutableSettings.settingsBuilder().put("cluster.name", "namle").build();
     	client = new TransportClient(settings).addTransportAddress(new InetSocketTransportAddress("localhost", 9300));
-    	
-        
+    	    
+
     }
-    
-    
+        
     public Client getClient(){
         return client;
     }       
