@@ -8,8 +8,13 @@ package com.aavn.demo.model;
 public class Result {
 
 	String name;
-	String porn;
+	String born;
 
+	public Result(String name, String born) {
+		this.name = name;
+		this.born = born;
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -17,13 +22,10 @@ public class Result {
 		this.name = name;
 	}
 	
-	public String getPorn() {
-		return porn;
+	public String getBorn() {
+		return born;
 	}
-	public void setPorn(String porn) {
-		this.porn = porn;
+	public void setBorn(String born) {
+		this.born = born;
 	}
-	
-	
-	
 }
