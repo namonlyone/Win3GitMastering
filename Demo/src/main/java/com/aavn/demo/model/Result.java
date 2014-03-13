@@ -22,7 +22,6 @@ public class Result {
 		this.name = name;
 	}
 	
-	
 	public String getBorn() {
 		return born;
 	}
