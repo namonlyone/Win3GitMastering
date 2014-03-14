@@ -29,7 +29,7 @@ public class ElasticSearchController extends AbstractController{
 	private static final String PERSON = "Person";
 	
 	@Override
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView handleRequestInternal(HttpServletRequest request,
 		HttpServletResponse response) throws Exception {
  
