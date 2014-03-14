@@ -25,7 +25,7 @@ public class Neo4jDataWriter implements ItemWriter<Movie> {
 
 	public void write(List<? extends Movie> items) throws Exception {
 
-		// Create connection
+		// Create connection 
 		Neo4jConnection connect = new Driver().connect(
 				"jdbc:neo4j://localhost:7474", new Properties());
 
