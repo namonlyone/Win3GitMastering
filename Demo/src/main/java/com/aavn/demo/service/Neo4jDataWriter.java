@@ -27,13 +27,13 @@ public class Neo4jDataWriter implements ItemWriter<Movie> {
 
 		// Create connection 
 		Neo4jConnection connect = new Driver().connect(
-				"jdbc:neo4j://localhost:7474", new Properties());
+				"jdbc:neo4j://192.168.79.32:7474", new Properties());
 
 		// Declare list query string.
 		List<String> dataLoad = new ArrayList<String>();
 		for (Movie report : items) {
 			dataLoad.add(String.format(FORMAT_QUERY, report.getTitle(),
-					report.getReleased(), report.getTagline()));
+					report.getReleased(), report.getTagline()).replace("\'", "\\'"));
 		}
 
 		connect.createStatement()
