@@ -153,7 +153,7 @@ function ClearResults(){
 	</div>
 </div>
 <div id="rs_panel" class="demo_result_panel">
-	<div id="rs_comment" style="width:100%; height:60px; background:inherit; overflow: hidden; padding-left: 10%">
+	<div id="rs_comment" style="height:60px; background:inherit; overflow: hidden; padding-left: 10%">
 	</div>
 	<div id="rs_content" class="demo_result_content">
 	</div>
