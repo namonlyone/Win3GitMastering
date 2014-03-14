@@ -1,7 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<script src="http://code.jquery.com/jquery-2.1.0.js"></script>
+	<head>
+		<title>[WIN3] Research Project Demo</title>
+		<script src="http://code.jquery.com/jquery-2.1.0.js"></script>
+		<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+		<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	</head>
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -17,8 +22,9 @@ $(document).ready(function(){
 		var jSearchValue=$("#seach_key");		
 		var jSearchURL="/Demo/search/" ;
 		
-		jSearchURL += jSearchValue.val();
+		jSearchURL += $.trim(jSearchValue.val());
 
+		if (!$.trim(jSearchValue.val())) return;
 
 		$.ajax(
 				{
@@ -63,19 +69,18 @@ function AppendResult(json){
 
 
 	if(json.type==="Person"){
-		type = "<h4>Actor/Actress:<h4>";
+		type = "<b>Person<b>";
 	} else if (json.type==="Movie"){
-		type = "<h4>Film<h4>";
+		type = "<b>Film<b>";
 	}
 
 	//Title row
 	var jTable = $('<table/>').append('<tr><td width="120px">' +type+ '</td><td></td><td></td></tr>');;
-	jTable.css("margin-left","10%");
 	
 	//content row
 	$.each(json, function(k,v){
 		if(k !=="type" && v!=null) {		
-			var row = $("<tr/>").append("<td width='120px'></td><td>"+k+"</td><td>:"+v+"</td>");
+			var row = $("<tr/>").append("<td width='120px'></td><td>"+k+"</td><td>: "+v+"</td>");
 			jTable.append(row);
 		}
 	});
@@ -89,13 +94,13 @@ function AppendResult(json){
 function PrintResultComment(data, searchWord){
 	var strCmt="";
 	if(data==null || data==""){
-		strCmt="No result found for '"+ searchWord +"'. Please try again...";
+		strCmt="No result found for '"+ searchWord +"'.";
 	}else {
-		strCmt=data.length + " result(s) found for '"+ searchWord +"'. All are listed below :";	
+		strCmt=data.length + " result(s) found for '"+ searchWord +"'.";	
 		
 	}
 	
-	$("#rs_comment").append("<h4>"+strCmt+"</h4>");
+	$("#rs_comment").append('<b>'+strCmt+'</b>');
 }
 
 function ClearResults(){
@@ -103,60 +108,38 @@ function ClearResults(){
 	$("#rs_content").empty();
 }
 </script>
-<style>
-	html,body{
-		height: 100%;
-		width:80%
-		margin-left: auto;
-		margin-right: auto;
-	}
-	
-	div.demo_seach_panel{
-		background: gray ;
-		height: 20%;
-		width: 100%;
-	}
-	
-	div.demo_result_panel{
-		background: silver;
-		height: 80%;	
 
-	}
-	div.demo_result_content
-	{
-		background:inherit;
-		overflow: auto;
-	}
-	div.horizonal_center{
-		margin-left: auto;
-		margin-right: auto;
-		width: 80%;	
-		height:100%;
-	}
-	div.vertical_center{
-		height:100%; 
-	}
-</style>
-
-<body>
-
-<div class="demo_seach_panel">
-	<div class="horizonal_center">
-		<div class="vertical_center">
-		<table height="100%" width="100%">
-			<tr><td style="vertical-align: middle;">
-			<input id="seach_key" type="text" style="width:70%">	
-			<input id="search_submit" type="submit" value="Search" style="width:100px" >
-			</td></tr>
-		</table>
+<body style="padding-top: 70px;">
+	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+		<div class="container">
+	        <div class="navbar-header">
+	          <a class="navbar-brand" href="#">[WIN3] Research Project Demo</a>
+	        </div>
+		</div>
+	</nav>
+<div class="container">
+	<div class="row">
+		<div class="col-md-8">
+			<form class="form-inline" role="form">
+				<div class="col-md-10">
+					<div class="input-group">
+					  <span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>
+					  <input id="seach_key" type="text" class="form-control" placeholder="Enter a person name or movie title to search" style="width: 100%;" />
+					</div>
+				</div>
+				<button id="search_submit" type="button" class="btn btn-default">Search</button>
+			</form>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<div id="rs_comment" style="padding-top: 20px;"></div>
+			<div id="rs_panel" class="demo_result_panel">
+				<div id="rs_content" class="demo_result_content">
+				</div>
+			</div>	
 		</div>
 	</div>
 </div>
-<div id="rs_panel" class="demo_result_panel">
-	<div id="rs_comment" style="width:100%; height:60px; background:inherit; overflow: hidden; padding-left: 10%">
-	</div>
-	<div id="rs_content" class="demo_result_content">
-	</div>
-</div>	
 </body>
 </html>
