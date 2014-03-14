@@ -1,9 +1,7 @@
 package com.aavn.demo.service;
 
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
@@ -27,29 +25,19 @@ public class Neo4jDataWriter implements ItemWriter<Movie> {
 
 	public void write(List<? extends Movie> items) throws Exception {
 
-		// Create connection
+		// Create connection 
 		Neo4jConnection connect = new Driver().connect(
-				"jdbc:neo4j://localhost:7474", new Properties());
+				"jdbc:neo4j://192.168.79.32:7474", new Properties());
 
 		// Declare list query string.
 		List<String> dataLoad = new ArrayList<String>();
 		for (Movie report : items) {
 			dataLoad.add(String.format(FORMAT_QUERY, report.getTitle(),
-					report.getReleased(), report.getTagline()));
+					report.getReleased(), report.getTagline()).replace("\'", "\\'"));
 		}
 
 		connect.createStatement()
 				.executeQuery(StringUtils.join(dataLoad, "\n"));
 
-		ResultSet resultSet = connect.createStatement().executeQuery("MATCH (n:Movie) RETURN n");
-
-		System.out.println("//-------------------------------------");
-		if(resultSet.next()) {
-			@SuppressWarnings("unchecked")
-			Map<String, Object> e = (Map<String, Object>) resultSet.getObject("n");
-			System.out.println(e.get("tagline"));
-		}
-		
-		System.out.println("//-------------------------------------");
 	}
 }

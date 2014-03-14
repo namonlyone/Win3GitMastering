@@ -1,11 +1,8 @@
 package com.aavn.demo.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.elasticsearch.action.search.SearchRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
@@ -20,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.AbstractController;
-
 import com.aavn.demo.model.Result;
 import com.aavn.demo.service.ClientProvider;
 
@@ -28,10 +24,9 @@ import com.aavn.demo.service.ClientProvider;
 @RequestMapping("/search")
 public class ElasticSearchController extends AbstractController{
 
-	private static final String INDEX_NAME = "movies";
-	private static final String TYPE = "movie";
+	private static final String INDEX_NAME = "neo4jdb";
+	private static final String TYPE = "film";
 	private static final String PERSON = "Person";
-
 	
 	@Override
 	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -47,7 +42,7 @@ public class ElasticSearchController extends AbstractController{
 
 		ArrayList<Result> resultLst = new ArrayList<Result>();
 		Result result = null;
-		
+		 
 		try {
 			
 			ClientProvider clientProvider = ClientProvider.instance();
