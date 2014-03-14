@@ -41,15 +41,5 @@ public class Neo4jDataWriter implements ItemWriter<Movie> {
 		connect.createStatement()
 				.executeQuery(StringUtils.join(dataLoad, "\n"));
 
-		ResultSet resultSet = connect.createStatement().executeQuery("MATCH (n:Movie) RETURN n");
-
-		System.out.println("//-------------------------------------");
-		if(resultSet.next()) {
-			@SuppressWarnings("unchecked")
-			Map<String, Object> e = (Map<String, Object>) resultSet.getObject("n");
-			System.out.println(e.get("tagline"));
-		}
-
-		System.out.println("//-------------------------------------");
 	}
 }
