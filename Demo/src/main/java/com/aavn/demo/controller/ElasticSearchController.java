@@ -47,7 +47,7 @@ public class ElasticSearchController extends AbstractController {
 
 		try {
 
-			ClientProvider clientProvider = ClientProvider.instance();
+			//ClientProvider clientProvider = ClientProvider.instance();
 			clientProvider.prepareClient();
 
 			QueryBuilder queryBuilder = QueryBuilders.fuzzyLikeThisQuery(
