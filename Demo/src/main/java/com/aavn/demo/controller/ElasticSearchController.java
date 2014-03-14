@@ -42,7 +42,7 @@ public class ElasticSearchController extends AbstractController{
 
 		ArrayList<Result> resultLst = new ArrayList<Result>();
 		Result result = null;
-		 
+		
 		try {
 			
 			ClientProvider clientProvider = ClientProvider.instance();
