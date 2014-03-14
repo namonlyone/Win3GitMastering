@@ -28,8 +28,8 @@ public class ClientProvider {
     }
 
     public void prepareClient(){
-        Settings settings = ImmutableSettings.settingsBuilder().put("cluster.name", "namle").build();
-    	client = new TransportClient(settings).addTransportAddress(new InetSocketTransportAddress("localhost", 9300));
+        Settings settings = ImmutableSettings.settingsBuilder().put("cluster.name", "dungle").build();
+    	client = new TransportClient(settings).addTransportAddress(new InetSocketTransportAddress("192.168.79.33", 9300));
     	    
 
     }
