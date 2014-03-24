@@ -7,7 +7,7 @@
     <title>CSV file to Neo4j database.</title>
 </head>
 <body>
-<h1 align="center">Spring batch demo...</h1>
+<h1 align="center">Spring batch demo.</h1>
 
 <h2 align="center">Importing data from CSV file to Neo4j.</h2>
 
